@@ -26,67 +26,54 @@
 
       <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
-          <a class="p-2 text-muted" href="#">World</a>
-          <a class="p-2 text-muted" href="#">U.S.</a>
-          <a class="p-2 text-muted" href="#">Technology</a>
-          <a class="p-2 text-muted" href="#">Design</a>
-          <a class="p-2 text-muted" href="#">Culture</a>
-          <a class="p-2 text-muted" href="#">Business</a>
-          <a class="p-2 text-muted" href="#">Politics</a>
-          <a class="p-2 text-muted" href="#">Opinion</a>
-          <a class="p-2 text-muted" href="#">Science</a>
-          <a class="p-2 text-muted" href="#">Health</a>
-          <a class="p-2 text-muted" href="#">Style</a>
-          <a class="p-2 text-muted" href="#">Travel</a>
+          {% for category in categorys %}
+          <a class="p-2 text-muted" href="#">{{category.category_name}}</a>
+          {% endfor %}
+         
         </nav>
       </div>
 
     
-    
-<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background-image: url({% static 'images/cricket.jpg' %});background-blend-mode: overlay;background-size:cover;">
+{% for post in blog_featuers %}
+{% if forloop.first %}
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background-image: url({{post.featured_image.url}});background-blend-mode: overlay;background-size:cover;">
     <div class="col-md-8 px-0">
-      <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
+      <h1 class="display-4 font-italic">{{post.title}}</h1>
+      <p class="lead my-3">{{post.short_description|truncatewords:40}}</p>
       <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
     </div>
-  </div>
-
+</div>
+{% endif %}
+{% endfor %}
+<h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Featuers Posts</h3>
   <div class="row mb-2">
+    {% for post in blog_featuers %}
     <div class="col-md-6">
       <div class="card border-0" >
         <div class="card-body">
-          <h3>Post Title</h3>
-          <small class="mb-1 text-muted">Nov 11 | Author</small>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h3>{{post.title}}</h3>
+          <small class="mb-1 text-muted">{{post.created_at|timesince}} | {{post.author}}</small>
+          <p class="card-text">{{post.short_description|truncatewords:40}}</p>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="card border-0" >
-        <div class="card-body">
-          <h3>Post Title</h3>
-          <small class="mb-1 text-muted">Nov 11 | Author</small>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
+    
   </div>
 
+  <h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Recents Articles</h3>
   <main role="main" class="container p-0">
     <div class="row">
       <div class="col-md-8 blog-main">
-
-        <div class="blog-post">
-          <h2 class="blog-post-title">Sample blog post</h2>
-          <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
-
-          <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
-         
-          <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-         
-          
+        {% for post in posts %}
+        <div class="card border-0" >
+          <div class="card-body">
+            <h3>{{post.title}}</h3>
+            <small class="mb-1 text-muted">{{post.created_at|timesince}} | {{post.author}}</small>
+            <p class="card-text">{{post.short_description}}</p>
+          </div>
         </div>
-        <!-- /.blog-post -->
+        {% endfor %}
 
       </div>
       <!-- /.blog-main -->
