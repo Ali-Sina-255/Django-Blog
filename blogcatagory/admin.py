@@ -9,4 +9,8 @@ class BlogAdmin(admin.ModelAdmin):
     search_fields = ('id', 'title', 'status', 'category__category_name')
 
 admin.site.register(Blog, BlogAdmin)
-admin.site.register(Category)
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'category_name', 'created_at', 'update_at')
+    list_display_links = ('id', 'category_name')
+admin.site.register(Category,CategoryAdmin )
