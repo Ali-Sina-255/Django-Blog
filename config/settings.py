@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'blogcatagory.apps.BlogcatagoryConfig',
+    'social.apps.SocialConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +65,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'blog.context_processors.get_categorys'
+                'blog.context_processors.get_categorys',
+                'blog.context_processors.get_social_links',
             ],
         },
     },
