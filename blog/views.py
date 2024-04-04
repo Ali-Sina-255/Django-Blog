@@ -22,3 +22,5 @@ def blogs(request, slug):
         "single_post":single_post
     }
     return render(request, 'blog/blog_detail.html', context)
+
+

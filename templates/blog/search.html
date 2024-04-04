@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 class="text-warning" style="letter-spacing: 2px;">Search Term -  {{keywords}}</h3>
+  <div class="row mb-2">
+    {% for post in search_result %}
+    <div class="col-md-6">
+      <div class="card border-0" >
+        <div class="card-body">
+          <h3><a href="{% url 'blog' post.slug %}" class="text-dark">{{post.title}}</a></h3>
+          <small class="mb-1 text-muted">{{post.created_at|timesince}} | {{post.author}}</small>
+          <p class="card-text">{{post.short_description|truncatewords:40}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    
+  </div>
+{% endblock %}
