@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from blogcatagory.models import Category, Blog
+from blogcatagory.models import Blog
 from . froms import UserRegistrationForms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
+
 
 
 def home(request):
@@ -71,4 +72,4 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('home')
+    return redirect('login')

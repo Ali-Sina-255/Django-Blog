@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'social.apps.SocialConfig',
     'crispy_forms',
     "crispy_bootstrap4",
+    "dashborads.apps.DashboradsConfig"
 ]
 
 MIDDLEWARE = [
