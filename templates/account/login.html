@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h3 class="text-uppercase text-center text-warning">Login</h3>
+
+<div class="">
+    <form action="{% url 'login' %}" method="POST" style="width: 500px; margin: auto;">
+        {{ forms.non_field_errors }} 
+        {% if messages %}
+            <p>{{messages}}</p>
+        {% endif %}
+    {% csrf_token %}
+    {{ forms|crispy }}
+
+    {% if forms.errors %}
+    <div class="alert alert-warning" role="alert">
+        {% for field in forms %}
+           {% if field.errors %}
+              <p> {{ field.errors }}</p>
+           {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <input type="submit" class="btn btn-success">
+    </form>
+    
+</div>
+{% endblock %}
