@@ -4,9 +4,11 @@ from blogcatagory.models import Blog
 from . froms import UserRegistrationForms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
-
+@login_required(login_url="login")
 def home(request):
     blog_featuers = Blog.objects.filter(is_featured=True, status="Published" )
     posts = Blog.objects.filter(is_featured=False, status="Published" )
@@ -39,9 +41,8 @@ def register(request):
         forms = UserRegistrationForms(request.POST)
         if forms.is_valid():
             forms.save()
-            # context["messages"] = "User Registration was successfull."
-            print(forms.errors)
             context["messages"] = "your registration we successful"
+            return redirect('login_views')
         else:
             print(forms.errors)
     else:
@@ -54,15 +55,15 @@ def login(request):
     if request.method == "POST":
         forms = AuthenticationForm(request,request.POST)
         if forms.is_valid():
-            useranme = forms.cleaned_data['username']
+            username = forms.cleaned_data['username']
             password = forms.cleaned_data['password']
-            user = auth.authenticate(useranme=useranme, password=password)
+            user = auth.authenticate(username=username, password=password)
+            
             if user is not None:
                 auth.login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
         else:
-            print(forms.errors)
-            
+            print(forms.errors)        
     else:
         forms = AuthenticationForm()
     context = {
@@ -70,6 +71,20 @@ def login(request):
     } 
     return render(request, 'account/login.html', context)
 
-def logout(request):
+
+def login_views(request):
+    if request.method == 'POST':
+        useranme = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(useranme=useranme, password=password)
+        if user is not None:
+            auth.login(request, user)
+        return redirect('dashboard')
+        
+    return render(request, 'account/login.html')
+
+
+def logout(request, *args, **kwargs):
     auth.logout(request)
-    return redirect('login')
+    messages.success(request, 'You are now logout!!!')
+    return redirect('home')

@@ -25,5 +25,6 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('category/', include('blogcatagory.urls')),
     path('blog/', include('social.urls')),
-    path('dashborad/', include('dashborads.urls')),
+    path('dashboard/', include('dashborads.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
