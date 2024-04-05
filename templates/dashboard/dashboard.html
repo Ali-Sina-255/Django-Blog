@@ -2,16 +2,9 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-3">
-       
-        <div class="nav flex-column  nav-pills bg-light" aria-orientation="vertical">
-        <a href="" class="nav-link text-dark bg-warning">Dashbord</a>
-        <a href="" class="nav-link text-dark ">Categorys</a>
-        <a href="" class="nav-link text-dark ">Posts</a>
-        <a href="" class="nav-link text-dark ">Logout</a>
-        </div>
-    </div>
+   {% include 'includes/sidebar.html' %}
     <div class="col-md-9">
+        <span>logged in as <b>{{user}}</b></span>
         <div class="row">
             <div class="col">
                 <div class="card border-default mb-3">

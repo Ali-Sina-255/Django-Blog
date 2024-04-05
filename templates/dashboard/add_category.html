@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="row">
+    {% include 'includes/sidebar.html' %}
+    <div class="col-md-9">
+        <h3>Add New Category</h3>
+        {% if messages %}
+            {{messages}}
+        {% endif %}
+        <form action="{% url 'add_category' %}" method="POST" style="width: 500px;">
+
+            {% csrf_token %}
+            {{forms|crispy}}
+            <input type="submit" class="btn btn-warning">
+        </form>
+    </div>
+</div>
+{% endblock %}
