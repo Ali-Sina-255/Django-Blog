@@ -9,4 +9,10 @@ urlpatterns =[
     path('categories/edit/<str:value_form_url>/', views.edit_category , name='edit_category'),
     path('categories/delete/<str:value_form_url>/', views.delete_category , name='delete_category'),
     
+    # post url
+    path('posts/',views.posts, name='posts'),
+    path('posts/add',views.add_posts, name='add_posts'),
+    path('posts/edit_post/<str:value_form_url>/',views.edit_post, name='edit_posts'),
+    path('posts/delete_post/<str:value_form_url>/',views.delete_post, name='delete_post'),
+    
 ]

@@ -23,7 +23,7 @@ STATUS_CHOICES = (
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     featured_image = models.ImageField(upload_to='images/%Y/%m/%d',default='default.jpg')

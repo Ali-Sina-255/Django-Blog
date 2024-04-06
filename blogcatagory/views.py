@@ -13,3 +13,6 @@ def post_by_catagory(request, category_id):
         'categorys': categorys,
         "category_name":category_name
     })
+
+
+

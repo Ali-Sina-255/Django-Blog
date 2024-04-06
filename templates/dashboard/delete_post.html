@@ -4,16 +4,16 @@
 <div class="row">
     {% include 'includes/sidebar.html' %}
     <div class="col-md-9">
-        <h3>Add New Category</h3>
+        <h3>Delete Blog Post </h3>
         {% if messages %}
             {{messages}}
         {% endif %}
         <form action="" method="POST" style="width: 500px;">
 
             {% csrf_token %}
-           <p>Are you sure you want to delete this category "{{object}}" ?</p>
+           <p>Are you sure you want to delete this post "{{post}}" ?</p>
             <input type="submit" class="btn btn-danger">
-            <a href="{% url 'categories' %}" class="btn btn-dark float-right">Back</a>
+            <a href="{% url 'posts' %}" class="btn btn-dark float-right">Back</a>
         </form>
     </div>
     

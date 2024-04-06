@@ -4,14 +4,14 @@
 <div class="row">
     {% include 'includes/sidebar.html' %}
     <div class="col-md-9">
-        <h3>Edit Category</h3>
+        <h3>Edit Blog Post</h3>
         {% if messages %}
             {{messages}}
         {% endif %}
-        <form action="{% url 'edit_category' categories.id %}" method="POST" style="width: 500px;">
+        <form action="{% url 'edit_posts' post.id %}" enctype="multipart/form-data" method="POST" style="width: 500px;">
 
             {% csrf_token %}
-            {{forms|crispy}}
+            {{form|crispy}}
             <input type="submit" class="btn btn-warning">
         </form>
     </div>
