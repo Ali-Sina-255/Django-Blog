@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from blogcatagory.models import Category, Blog
 from django.contrib.auth.decorators import login_required
-from .forms import AddCategoryForms, AddPostForms
+from .forms import AddCategoryForms, AddPostForms, UserCreationForms
 from django.http import HttpResponse
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 
 @login_required(login_url="login")
@@ -138,3 +139,22 @@ def delete_post(request, value_form_url):
         context["messages"] = "Your post is deleted"
         return redirect('posts')
     return render(request, 'dashboard/delete_post.html')
+
+
+def users(request):
+    users  = User.objects.all()
+    context = {
+        "users": users
+    }
+    return render(request, 'dashboard/user.html', context)
+
+
+def add_new_user(request):
+    
+    form = UserCreationForms()
+    context = {
+        "form": form
+    }
+    context["messages"] = "New user is saved"
+    
+    return render(request, 'dashboard/add_user.html', context)

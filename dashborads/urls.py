@@ -14,5 +14,8 @@ urlpatterns =[
     path('posts/add',views.add_posts, name='add_posts'),
     path('posts/edit_post/<str:value_form_url>/',views.edit_post, name='edit_posts'),
     path('posts/delete_post/<str:value_form_url>/',views.delete_post, name='delete_post'),
+    # Users URL
+    path('users/',views.users, name='users'),
+    path('users/add/',views.add_new_user, name='add_user'),
     
 ]

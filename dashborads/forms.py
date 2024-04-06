@@ -1,5 +1,7 @@
 from django.forms import ModelForm
 from blogcatagory.models import Category, Blog
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
 class AddCategoryForms(ModelForm):
@@ -13,3 +15,9 @@ class AddPostForms(ModelForm):
         model = Blog
         fields = '__all__'
         exclude = ['slug', 'author']
+        
+        
+class UserCreationForms(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username']
