@@ -1,31 +1,32 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="row">
-   {% include 'includes/sidebar.html' %}
-    <div class="col-md-9">
-        <span>logged in as <b>{{user}}</b></span>
-        <div class="row">
-            <div class="col">
-                <div class="card border-default mb-3">
-                    <div class="card-header text-center text-uppercase fw-blod">All Categories</div>
-                </div>
-                <div class="card-body text-dark">
-                    <h5 class="text-center">{{all_category}}</h5>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-default mb-3">
-                    <div class="card-header text-center text-uppercase fw-blod">All Posts</div>
-                </div>
-                <div class="card-body text-dark">
-                    <h5 class="text-center">{{all_blog}}</h5>
-                </div>
-            </div>
+  {% include 'includes/sidebar.html' %}
+  <div class="col-md-9">
+    <span>logged in as <b>{{user}}</b></span>
+    <div class="row">
+      <div class="col">
+        <div class="card border-default mb-3">
+          <div class="card-header text-center text-uppercase fw-blod">
+            All Categories
+          </div>
         </div>
-    </div>
-</div>
+        <div class="card-body text-dark">
+          <h5 class="text-center"><b>{{all_category}}</b></h5>
+        </div>
+      </div>
 
+      <div class="col">
+        <div class="card border-default mb-3">
+          <div class="card-header text-center text-uppercase fw-blod">
+            All Posts
+          </div>
+        </div>
+        <div class="card-body text-dark">
+          <h5 class="text-center"><b>{{all_blog}}</b></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
