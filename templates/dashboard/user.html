@@ -4,8 +4,9 @@
 <div class="row">
     {% include 'includes/sidebar.html' %}
     <div class="col-md-9">
+      {% if perms.auth_view_user %}
         <h2>All Users</h2>
-        <a href="{% url 'add_posts' %}" class="btn btn-dark float-right mb-2">Add New  </a>
+        <a href="{% url 'add_user' %}" class="btn btn-dark float-right mb-2">Add New  </a>
         <table class="table table-hover">
             <thead>
               <tr>
@@ -36,14 +37,17 @@
                 <td>{{post.action}}</td>
                 
                 <td>
-                    <a href=""><i class="fa fa-edit text-success"></i></a>
+                    <a href="{% url 'edit_users' user.id %}"><i class="fa fa-edit text-success"></i></a>
                     &nbsp;
-                   <a href=""> <i class="fa fa-trash text-danger"></i></a>
+                   <a href="{% url 'delete_user' user.id %}"> <i class="fa fa-trash text-danger"></i></a>
                 </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
+          {% else %}
+          <h4 class="text-danger">You don not have permission to view this pages !!!</h4>
+          {% endif %}
     </div>
 </div>
 

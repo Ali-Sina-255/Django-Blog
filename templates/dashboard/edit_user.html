@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="row">
+    {% include 'includes/sidebar.html' %}
+    <div class="col-md-9">
+        <h3>Edit Users</h3>
+       
+        <form action="{% url 'edit_users' users.id %}"  method="POST" style="width: 500px;">
+
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-warning">
+        </form>
+    </div>
+</div>
+{% endblock %}

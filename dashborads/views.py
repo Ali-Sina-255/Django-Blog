@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from blogcatagory.models import Category, Blog
 from django.contrib.auth.decorators import login_required
-from .forms import AddCategoryForms, AddPostForms, UserCreationForms
+from .forms import AddCategoryForms, AddPostForms, UserCreationForms, Edit_UserFrom
 from django.http import HttpResponse
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -103,9 +103,9 @@ def add_posts(request):
     return render(request, 'dashboard/add_posts.html', context)
 
 
-def edit_post(request, value_form_url):
+def edit_post(request, value_from_url):
     try:
-        post = Blog.objects.get(pk=value_form_url)
+        post = Blog.objects.get(pk=value_from_url)
     except Blog.DoesNotExist:
         return HttpResponse("blog does not exits")
     form = AddPostForms(instance=post)
@@ -126,9 +126,9 @@ def edit_post(request, value_form_url):
     return render(request, 'dashboard/edit_post.html', context)
 
 
-def delete_post(request, value_form_url):
+def delete_post(request, value_from_url):
     try:   
-        post = Blog.objects.get(id=value_form_url)
+        post = Blog.objects.get(id=value_from_url)
     except Blog.DoesNotExist:
         return HttpResponse("this post is not in the Database")
     context = {
@@ -150,11 +150,43 @@ def users(request):
 
 
 def add_new_user(request):
-    
     form = UserCreationForms()
     context = {
         "form": form
     }
-    context["messages"] = "New user is saved"
-    
+    if request.method == "POST":
+        form = UserCreationForms(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+        else:
+            print(form.errors)
     return render(request, 'dashboard/add_user.html', context)
+
+
+def edit_users(request, value_from_url):
+    try:
+        users = User.objects.get(id=value_from_url)
+    except User.DoesNotExist:
+        return HttpResponse(f"User with this {value_form_url} not exist.")        
+    if request.method == "POST":
+        form = Edit_UserFrom(request.POST,instance=users)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+        else:
+            print(form.errors)
+    form = Edit_UserFrom(instance=users)
+    context = {
+        "form": form,
+        "users": users
+    }
+    return render(request,'dashboard/edit_user.html',context)
+
+def delete_user(request, value_from_url):
+    try:
+        users = User.objects.get(id=value_from_url)
+    except User.DoesNotExist:
+        return HttpResponse(f"User with this {value_from_url} is not exist")
+    users.delete()
+    return redirect("users")
