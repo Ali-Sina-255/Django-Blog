@@ -24,7 +24,37 @@
                     <p class="fs-5 mb-4">{{single_post.short_description}}</p>
                     <p class="fs-5 mb-4">{{single_post.blog_body}}</p>
                     </section>
-            </article>
+                </article>  
+                <h3>Comments({{comment_count}})</h3>
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text mb-0">{{comment}}</p>
+                                <samp>
+                                    <small> By {{comment.user.username}}</small>
+                                    <small> By {{comment.created_at|timesince}}</small>
+                                </samp>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <p class="text-danger">No comments Yet !!!!!!</p>
+                {% endif %} 
+                <br>
+            <div class="form-group">
+                {% if user.is_authenticated %}
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="from-group">
+                            <textarea name="comment" placeholder="Enter your message " class="from-contorl" cols="80" rows="10"></textarea>
+                            <input type="submit" class="btn btn-primary mt-2">
+                        </div>
+                    </form>
+                    {% else %}
+                    <p>please <span><a href="{% url 'login' %}">login</a></span>to write a commit ?</p>
+                {% endif %}
+            </div>
         </div>
         <!-- Side widgets-->
         <div class="col-lg-4">

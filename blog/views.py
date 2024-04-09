@@ -6,9 +6,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from dashborads.models import Comment
 
 
-@login_required(login_url="login")
 def home(request):
     blog_featuers = Blog.objects.filter(is_featured=True, status="Published" )
     posts = Blog.objects.filter(is_featured=False, status="Published" )
@@ -22,10 +22,21 @@ def home(request):
 def blogs(request, slug):
     try:
         single_post = Blog.objects.get(slug=slug, status='Published')
+        comments = Comment.objects.filter(blog=single_post)
+        comment_count = comments.count()
+        if request.method == "POST":
+            comment = Comment()
+            comment.user = request.user
+            comment.blog = single_post
+            comment.comment = request.POST['comment']
+            comment.save()
+            return redirect('home')
     except:
         return HttpResponse(f"post with is {slug} is not in the databaes .")
     context = {
-        "single_post":single_post
+        "single_post":single_post,
+        "comments": comments,
+        "comment_count":comment_count
     }
     return render(request, 'blog/blog_detail.html', context)
 
